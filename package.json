@@ -1,0 +1,29 @@
+{
+  "name": "slidesup-demo",
+  "version": "1.0.0",
+  "author": "SlidesUp",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "@material-ui/core": "^1.2.3",
+    "@material-ui/icons": "^1.1.0",
+    "classnames": "^2.2.6",
+    "firebase": "^5.1.0",
+    "moment": "^2.22.2",
+    "moment-duration-format": "^2.2.2",
+    "moment-timezone": "^0.5.20",
+    "prop-types": "^15.6.2",
+    "react": "^16.4.1",
+    "react-dom": "^16.4.1"
+  },
+  "devDependencies": {
+    "prettier": "^1.13.5",
+    "react-scripts": "1.1.4"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject",
+    "format": "prettier --print-width 80 --tab-width 4 --single-quote --write '{src,stories}/**/*.js'"
+  }
+}
