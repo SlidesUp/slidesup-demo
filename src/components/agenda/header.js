@@ -20,14 +20,14 @@ import Typography from '@material-ui/core/Typography';
 import Toolbar from '@material-ui/core/Toolbar';
 import PropTypes from 'prop-types';
 
-const styles = theme => ({
+const styles = (theme) => ({
     appBar: {
-        backgroundColor: theme.palette.grey[950]
+        backgroundColor: theme.palette.grey[950],
     },
     toolbar: {
         paddingLeft: theme.spacing.unit * 4,
-        paddingRight: theme.spacing.unit * 4
-    }
+        paddingRight: theme.spacing.unit * 4,
+    },
 });
 
 const decorate = withStyles(styles);
@@ -35,7 +35,7 @@ const decorate = withStyles(styles);
 export const Header = decorate(
     class extends React.Component {
         static propTypes = {
-            title: PropTypes.string.isRequired
+            title: PropTypes.string.isRequired,
         };
 
         render() {

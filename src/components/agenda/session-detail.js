@@ -25,45 +25,53 @@ import PropTypes from 'prop-types';
 import { DateTimeUtils } from '../../utils/datetime-utils';
 import { SpeakerProfile } from './speaker-profile';
 
-const styles = theme => ({
+const styles = (theme) => ({
     header: {
         display: 'flex',
-        paddingBottom: 10
+        paddingBottom: 10,
     },
     titleBlock: {
-        flex: 1
+        flex: 1,
     },
     title: {
-        marginBottom: 4
+        marginBottom: 4,
     },
     closeButton: {
         marginTop: -theme.spacing.unit,
-        marginLeft: theme.spacing.unit * 4
+        marginLeft: theme.spacing.unit * 4,
     },
     subheading: {
         color: theme.palette.text.secondary,
         fontSize: theme.typography.pxToRem(14),
-        lineHeight: 1.4
+        lineHeight: 1.4,
     },
     speakerProfile: {
-        marginTop: theme.spacing.unit * 3
-    }
+        marginTop: theme.spacing.unit * 3,
+    },
 });
 
 const decorate = withStyles(styles);
 
-export const EventDetail = decorate(
+export const SessionDetail = decorate(
     class extends React.Component {
         static propTypes = {
-            confStore: PropTypes.object.isRequired,
-            event: PropTypes.object.isRequired,
+            eventStore: PropTypes.object.isRequired,
+            session: PropTypes.object.isRequired,
             open: PropTypes.bool.isRequired,
-            onClose: PropTypes.func.isRequired
+            onClose: PropTypes.func.isRequired,
         };
 
         render() {
-            const { classes, confStore, event, open, onClose } = this.props;
-            const { track, roomMap, speakerMap, description } = event;
+            const { classes, eventStore, session, open, onClose } = this.props;
+            const {
+                name,
+                startTime,
+                duration,
+                track,
+                roomMap,
+                speakerMap,
+                description,
+            } = session;
             const speaker =
                 speakerMap.size > 0 ? Array.from(speakerMap.values())[0] : null;
             const roomsString = this.formatRooms(roomMap);
@@ -71,12 +79,12 @@ export const EventDetail = decorate(
 
             return (
                 <Dialog
-                    aria-labelledby="event-detail-title"
+                    aria-labelledby="session-detail-title"
                     open={open}
                     onClose={onClose}
                 >
                     <DialogTitle
-                        id="event-detail-title"
+                        id="session-detail-title"
                         className={classes.header}
                         disableTypography={true}
                     >
@@ -85,19 +93,16 @@ export const EventDetail = decorate(
                                 variant="title"
                                 className={classes.title}
                             >
-                                {event.name}
+                                {name}
                             </Typography>
                             <Typography
                                 variant="subheading"
                                 className={classes.subheading}
                             >
                                 {DateTimeUtils.timeRangeToShortStr(
-                                    event.startTime,
-                                    new Date(
-                                        event.startTime.getTime() +
-                                            event.duration
-                                    ),
-                                    confStore.conf.timezone
+                                    startTime,
+                                    new Date(startTime.getTime() + duration),
+                                    eventStore.event.timezone
                                 )}
                             </Typography>
 
@@ -146,7 +151,7 @@ export const EventDetail = decorate(
             }
 
             return Array.from(roomMap.values())
-                .map(room => {
+                .map((room) => {
                     return room.name;
                 })
                 .join(', ');

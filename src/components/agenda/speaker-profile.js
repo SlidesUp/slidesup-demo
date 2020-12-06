@@ -19,33 +19,33 @@ import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import PropTypes from 'prop-types';
 
-const styles = theme => ({
+const styles = (theme) => ({
     speaker: {
         display: 'flex',
         flexDirection: 'row',
         marginBottom: theme.spacing.unit,
-        cursor: 'pointer'
+        cursor: 'pointer',
     },
     avatar: {
         width: theme.spacing.unit * 5,
         height: theme.spacing.unit * 5,
         '& img': {
-            filter: 'grayscale(100%)'
-        }
+            filter: 'grayscale(100%)',
+        },
     },
     speakerRhs: {
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
-        marginLeft: theme.spacing.unit
+        marginLeft: theme.spacing.unit,
     },
     name: {
         fontSize: 14,
-        fontWeight: theme.typography.fontWeightMedium
+        fontWeight: theme.typography.fontWeightMedium,
     },
     affiliation: {
-        fontSize: 12
-    }
+        fontSize: 12,
+    },
 });
 
 const decorate = withStyles(styles);
@@ -54,7 +54,7 @@ export const SpeakerProfile = decorate(
     class extends React.Component {
         static propTypes = {
             speaker: PropTypes.object.isRequired,
-            className: PropTypes.string
+            className: PropTypes.string,
         };
 
         render() {

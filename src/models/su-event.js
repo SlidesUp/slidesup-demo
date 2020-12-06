@@ -13,37 +13,53 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-export class Section {
+export class SuEvent {
     id;
     name;
-    title;
+    isPublished;
     startTime;
     endTime;
+    timezone;
+    description;
 
     /**
      * @param {string} id
      * @param {string} name
-     * @param {string} title
+     * @param {boolean} isPublished
      * @param {Date} [startTime]
      * @param {Date} [endTime]
+     * @param {string} [timezone]
+     * @param {string} [description] - This is an HTML string
      */
-    constructor(id, name, title, startTime, endTime) {
+    constructor(
+        id,
+        name,
+        isPublished,
+        startTime,
+        endTime,
+        timezone,
+        description
+    ) {
         this.id = id;
         this.name = name;
-        this.title = title;
+        this.isPublished = isPublished;
         this.startTime = startTime;
         this.endTime = endTime;
+        this.timezone = timezone;
+        this.description = description;
     }
 
-    static toModel(id, jsSection) {
-        const { startTime, endTime } = jsSection;
+    static toModel(id, jsEvent) {
+        const { startTime, endTime } = jsEvent;
 
-        return new Section(
+        return new SuEvent(
             id,
-            jsSection.name,
-            jsSection.title,
+            jsEvent.name,
+            jsEvent.isPublished,
             startTime ? new Date(startTime) : null,
-            endTime ? new Date(endTime) : null
+            endTime ? new Date(endTime) : null,
+            jsEvent.timezone,
+            jsEvent.description
         );
     }
 }

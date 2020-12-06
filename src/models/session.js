@@ -15,11 +15,11 @@
  */
 import { DateTimeUtils } from '../utils/datetime-utils';
 
-export class ConfEvent {
+export class Session {
     id;
     name;
     isPublished;
-    isGeneralEvent;
+    isGeneralSession;
     startTime;
     duration;
     track;
@@ -31,7 +31,7 @@ export class ConfEvent {
      * @param {string} id
      * @param {string} name
      * @param {boolean} isPublished
-     * @param {boolean} isGeneralEvent
+     * @param {boolean} isGeneralSession
      * @param {Date} [startTime]
      * @param {number} [duration] (milliseconds)
      * @param {Track} [track]
@@ -43,7 +43,7 @@ export class ConfEvent {
         id,
         name,
         isPublished = false,
-        isGeneralEvent = false,
+        isGeneralSession = false,
         startTime = null,
         duration = null,
         track = null,
@@ -54,7 +54,7 @@ export class ConfEvent {
         this.id = id;
         this.name = name;
         this.isPublished = isPublished;
-        this.isGeneralEvent = isGeneralEvent;
+        this.isGeneralSession = isGeneralSession;
         this.startTime = startTime;
         this.duration = duration;
         this.track = track;
@@ -63,21 +63,21 @@ export class ConfEvent {
         this.description = description;
     }
 
-    static toModel(id, jsEvent, track, roomMap, speakerMap) {
+    static toModel(id, jsSession, track, roomMap, speakerMap) {
         const {
             name,
             isPublished,
-            isGeneralEvent,
+            isGeneralSession,
             startTime,
             duration,
-            description
-        } = jsEvent;
+            description,
+        } = jsSession;
 
-        return new ConfEvent(
+        return new Session(
             id,
             name,
             isPublished,
-            isGeneralEvent,
+            isGeneralSession,
             startTime ? new Date(startTime) : null,
             duration ? DateTimeUtils.durationStrToMillis(duration) : null,
             track,

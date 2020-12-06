@@ -16,7 +16,7 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 
-const styles = theme => ({
+const styles = (theme) => ({
     root: {
         width: '100vw',
         height: '100vh',
@@ -24,8 +24,8 @@ const styles = theme => ({
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
-        alignItems: 'center'
-    }
+        alignItems: 'center',
+    },
 });
 
 const decorate = withStyles(styles);

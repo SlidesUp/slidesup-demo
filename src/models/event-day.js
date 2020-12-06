@@ -13,53 +13,37 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-export class Conf {
+export class EventDay {
     id;
     name;
-    isPublished;
+    title;
     startTime;
     endTime;
-    timezone;
-    description;
 
     /**
      * @param {string} id
      * @param {string} name
-     * @param {boolean} isPublished
+     * @param {string} title
      * @param {Date} [startTime]
      * @param {Date} [endTime]
-     * @param {string} [timezone]
-     * @param {string} [description] - This is an HTML string
      */
-    constructor(
-        id,
-        name,
-        isPublished,
-        startTime,
-        endTime,
-        timezone,
-        description
-    ) {
+    constructor(id, name, title, startTime, endTime) {
         this.id = id;
         this.name = name;
-        this.isPublished = isPublished;
+        this.title = title;
         this.startTime = startTime;
         this.endTime = endTime;
-        this.timezone = timezone;
-        this.description = description;
     }
 
-    static toModel(id, jsConf) {
-        const { startTime, endTime } = jsConf;
+    static toModel(id, jsDay) {
+        const { startTime, endTime } = jsDay;
 
-        return new Conf(
+        return new EventDay(
             id,
-            jsConf.name,
-            jsConf.isPublished,
+            jsDay.name,
+            jsDay.title,
             startTime ? new Date(startTime) : null,
-            endTime ? new Date(endTime) : null,
-            jsConf.timezone,
-            jsConf.description
+            endTime ? new Date(endTime) : null
         );
     }
 }

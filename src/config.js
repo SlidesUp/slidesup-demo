@@ -17,6 +17,6 @@ import firebase from 'firebase/app';
 
 export function initFirebase() {
     firebase.initializeApp({
-        databaseURL: process.env.REACT_APP_FB_DB_URL
+        databaseURL: process.env.REACT_APP_FB_DB_URL,
     });
 }

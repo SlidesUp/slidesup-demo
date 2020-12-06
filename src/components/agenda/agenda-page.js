@@ -18,18 +18,18 @@ import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import PropTypes from 'prop-types';
 import { Header } from './header';
-import { SectionView } from './section-view';
+import { DayView } from './day-view';
 
-const styles = theme => ({
+const styles = (theme) => ({
     main: {
         maxWidth: 1280,
-        margin: '0 auto'
+        margin: '0 auto',
     },
     title: {
         padding: theme.spacing.unit * 4,
         marginTop: theme.spacing.unit * 8,
-        color: theme.palette.text.primary
-    }
+        color: theme.palette.text.primary,
+    },
 });
 
 const decorate = withStyles(styles);
@@ -37,21 +37,21 @@ const decorate = withStyles(styles);
 export const AgendaPage = decorate(
     class extends React.Component {
         static propTypes = {
-            confStore: PropTypes.object.isRequired
+            eventStore: PropTypes.object.isRequired,
         };
 
         render() {
-            const { classes, confStore } = this.props;
+            const { classes, eventStore } = this.props;
 
-            // Sort sections by start time
-            const sections = Array.from(confStore.sectionMap.values());
-            sections.sort((s1, s2) => {
+            // Sort days by start time
+            const days = Array.from(eventStore.dayMap.values());
+            days.sort((s1, s2) => {
                 return s1.startTime - s2.startTime;
             });
 
             return (
                 <Fragment>
-                    <Header title={confStore.conf.name} />
+                    <Header title={eventStore.event.name} />
                     <main className={classes.main}>
                         <Typography
                             variant="display1"
@@ -59,12 +59,12 @@ export const AgendaPage = decorate(
                         >
                             AGENDA
                         </Typography>
-                        {sections.map(section => {
+                        {days.map((day) => {
                             return (
-                                <SectionView
-                                    key={section.id}
-                                    confStore={confStore}
-                                    section={section}
+                                <DayView
+                                    key={day.id}
+                                    eventStore={eventStore}
+                                    day={day}
                                 />
                             );
                         })}

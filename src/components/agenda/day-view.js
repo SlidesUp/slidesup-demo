@@ -22,42 +22,42 @@ import { DateTimeUtils } from '../../utils/datetime-utils';
 import { Headline } from '../basics/typography';
 import { TimeSlotView } from './time-slot-view';
 
-const styles = theme => ({
+const styles = (theme) => ({
     root: {
-        margin: '32px 32px 80px 32px'
+        margin: '32px 32px 80px 32px',
     },
     subheading: {
         fontFamily: theme.typography.fontFamilySerif,
         fontStyle: 'italic',
         color: theme.palette.text.secondary,
-        marginBottom: theme.spacing.unit * 7
-    }
+        marginBottom: theme.spacing.unit * 7,
+    },
 });
 
 const decorate = withStyles(styles);
 
-export const SectionView = decorate(
+export const DayView = decorate(
     class extends React.Component {
         static propTypes = {
-            confStore: PropTypes.object.isRequired,
-            section: PropTypes.object.isRequired
+            eventStore: PropTypes.object.isRequired,
+            day: PropTypes.object.isRequired,
         };
 
         render() {
-            const { classes, confStore, section } = this.props;
-            const { eventMap } = confStore;
-            const timeSlots = this.groupEventsByTimeSlots(eventMap, section);
+            const { classes, eventStore, day } = this.props;
+            const { sessionMap } = eventStore;
+            const timeSlots = this.groupSessionsByTimeSlots(sessionMap, day);
 
             return (
                 <section className={classes.root}>
-                    <Headline>{section.name}</Headline>
+                    <Headline>{day.name}</Headline>
                     <Typography
                         variant="subheading"
                         className={classes.subheading}
                     >
                         {DateTimeUtils.dateToDayDate(
-                            section.startTime,
-                            confStore.conf.timezone
+                            day.startTime,
+                            eventStore.event.timezone
                         )}
                     </Typography>
                     {timeSlots.map((timeSlot, index) => {
@@ -65,7 +65,7 @@ export const SectionView = decorate(
                             <TimeSlotView
                                 key={index}
                                 timeSlot={timeSlot}
-                                confStore={confStore}
+                                eventStore={eventStore}
                                 even={index % 2 === 0}
                             />
                         );
@@ -74,20 +74,22 @@ export const SectionView = decorate(
             );
         }
 
-        groupEventsByTimeSlots(eventMap, section) {
-            // Collect the events for this section
-            const events = Array.from(eventMap.values()).filter(event => {
-                if (!event.startTime) {
-                    return false;
+        groupSessionsByTimeSlots(sessionMap, day) {
+            // Collect the sessions for this day
+            const sessions = Array.from(sessionMap.values()).filter(
+                (session) => {
+                    if (!session.startTime) {
+                        return false;
+                    }
+                    return (
+                        day.startTime <= session.startTime &&
+                        session.startTime < day.endTime
+                    );
                 }
-                return (
-                    section.startTime <= event.startTime &&
-                    event.startTime < section.endTime
-                );
-            });
+            );
 
-            // Sort events by start time & then by duration
-            events.sort((e1, e2) => {
+            // Sort sessions by start time & then by duration
+            sessions.sort((e1, e2) => {
                 const startDiff = e1.startTime - e2.startTime;
                 const durationDiff = e1.duration - e2.duration;
                 return startDiff !== 0 ? startDiff : durationDiff;
@@ -95,15 +97,15 @@ export const SectionView = decorate(
 
             // Group by time slots
             const timeSlots = [];
-            events.forEach(event => {
+            sessions.forEach((session) => {
                 if (timeSlots.length === 0) {
-                    timeSlots.push(new TimeSlot(event));
+                    timeSlots.push(new TimeSlot(session));
                 } else {
                     const currentSlot = timeSlots[timeSlots.length - 1];
-                    if (currentSlot.accepts(event)) {
-                        currentSlot.add(event);
+                    if (currentSlot.accepts(session)) {
+                        currentSlot.add(session);
                     } else {
-                        timeSlots.push(new TimeSlot(event));
+                        timeSlots.push(new TimeSlot(session));
                     }
                 }
             });

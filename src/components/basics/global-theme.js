@@ -15,17 +15,17 @@
  */
 import { withStyles } from '@material-ui/core/styles';
 
-const styles = theme => ({
+const styles = (theme) => ({
     '@global': {
         a: {
             color: theme.palette.primary.main,
             textDecoration: 'none',
             '&:hover': {
-                color: theme.palette.primary.dark
+                color: theme.palette.primary.dark,
             },
-            fontWeight: theme.typography.fontWeightMedium
-        }
-    }
+            fontWeight: theme.typography.fontWeightMedium,
+        },
+    },
 });
 
 const decorate = withStyles(styles);

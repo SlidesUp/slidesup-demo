@@ -15,7 +15,7 @@
  */
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
-import { getConference } from '../../adapters/conference.adapter';
+import { getEvent } from '../../services/event.service';
 import { BusyIndicator } from '../basics/busy-indicator';
 import { CenteredContainer } from '../basics/centered-container';
 import { AgendaPage } from './agenda-page';
@@ -24,24 +24,24 @@ export class AgendaContainer extends React.Component {
     state = {
         loading: true,
         error: null,
-        confStore: null
+        eventStore: null,
     };
 
     componentDidMount() {
-        const confId = process.env.REACT_APP_CONF_ID;
-        return getConference(confId)
-            .then(confStore => {
+        const eventId = process.env.REACT_APP_EVENT_ID;
+        return getEvent(eventId)
+            .then((eventStore) => {
                 this.setState({
                     loading: false,
                     error: null,
-                    confStore: confStore
+                    eventStore: eventStore,
                 });
             })
-            .catch(error => {
+            .catch((error) => {
                 this.setState({
                     loading: false,
                     error: error,
-                    confStore: null
+                    eventStore: null,
                 });
             });
     }
@@ -62,7 +62,7 @@ export class AgendaContainer extends React.Component {
                 </CenteredContainer>
             );
         } else {
-            return <AgendaPage confStore={this.state.confStore} />;
+            return <AgendaPage eventStore={this.state.eventStore} />;
         }
     }
 }

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-export class Speaker {
+export class Profile {
     id;
     name;
     title;
@@ -77,7 +77,7 @@ export class Speaker {
         }
     }
 
-    static toModel(id, jsSpeaker) {
+    static toModel(id, jsProfile) {
         const {
             name,
             title,
@@ -87,8 +87,8 @@ export class Speaker {
             pictureUrl,
             socialProfiles: jsSocialProfiles,
             isFeatured,
-            featuredOrder
-        } = jsSpeaker;
+            featuredOrder,
+        } = jsProfile;
 
         const socialProfiles = new Map();
         if (jsSocialProfiles) {
@@ -99,7 +99,7 @@ export class Speaker {
             }
         }
 
-        return new Speaker(
+        return new Profile(
             id,
             name,
             title,

@@ -16,26 +16,26 @@
 export class TimeSlot {
     startTime;
     duration;
-    events = [];
+    sessions = [];
 
     /**
-     * TimeSlot is initialized using the first event that is put into it
-     * @param {ConfEvent} [event]
+     * TimeSlot is initialized using the first session that is put into it
+     * @param {Session} [session]
      */
-    constructor(event) {
-        this.startTime = event.startTime;
-        this.duration = event.duration;
-        this.events.push(event);
+    constructor(session) {
+        this.startTime = session.startTime;
+        this.duration = session.duration;
+        this.sessions.push(session);
     }
 
-    accepts(event) {
+    accepts(session) {
         return (
-            event.startTime.getTime() === this.startTime.getTime() &&
-            event.duration === this.duration
+            session.startTime.getTime() === this.startTime.getTime() &&
+            session.duration === this.duration
         );
     }
 
-    add(event) {
-        this.events.push(event);
+    add(session) {
+        this.sessions.push(session);
     }
 }

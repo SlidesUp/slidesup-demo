@@ -28,7 +28,7 @@ import Typography from '@material-ui/core/Typography';
 //     }
 // };
 
-const styles = theme => ({
+const styles = (theme) => ({
     // >= 1024: 24px --> default
     // < 1024:  20px --> down('sm') => xs + sm (inclusive)
     // < 768:   16px --> down('xs') => xs      (inclusive)
@@ -36,12 +36,12 @@ const styles = theme => ({
         fontWeight: theme.typography.fontWeightMedium,
         letterSpacing: 2,
         [theme.breakpoints.down('sm')]: {
-            fontSize: theme.typography.pxToRem(20)
+            fontSize: theme.typography.pxToRem(20),
         },
         [theme.breakpoints.down('xs')]: {
-            fontSize: theme.typography.pxToRem(16)
-        }
-    }
+            fontSize: theme.typography.pxToRem(16),
+        },
+    },
 });
 
 const decorate = withStyles(styles);

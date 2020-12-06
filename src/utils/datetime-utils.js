@@ -28,9 +28,7 @@ export class DateTimeUtils {
             return null;
         }
 
-        return moment(date)
-            .tz(timezone)
-            .format('dddd, MMMM D');
+        return moment(date).tz(timezone).format('dddd, MMMM D');
     }
 
     /**
@@ -43,9 +41,7 @@ export class DateTimeUtils {
             return null;
         }
 
-        return moment(time)
-            .tz(timezone)
-            .format('h:mm A');
+        return moment(time).tz(timezone).format('h:mm A');
     }
 
     /**

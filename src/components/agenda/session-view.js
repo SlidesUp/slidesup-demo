@@ -19,14 +19,14 @@ import Typography from '@material-ui/core/Typography';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import { Headline } from '../basics/typography';
-import { EventDetail } from './event-detail';
+import { SessionDetail } from './session-detail';
 
-const styles = theme => ({
+const styles = (theme) => ({
     root: {
-        display: 'flex'
+        display: 'flex',
     },
     marginTop: {
-        marginTop: theme.spacing.unit * 7
+        marginTop: theme.spacing.unit * 7,
     },
     speakerImage: {
         flex: `0 0 ${theme.spacing.unit * 8}px`,
@@ -35,34 +35,34 @@ const styles = theme => ({
         '& img': {
             maxWidth: '100%',
             maxHeight: '100%',
-            filter: 'grayscale(100%)'
-        }
+            filter: 'grayscale(100%)',
+        },
     },
     subheading: {
-        color: theme.palette.text.secondary
+        color: theme.palette.text.secondary,
     },
-    eventInfo: {
-        cursor: 'pointer'
-    }
+    sessionInfo: {
+        cursor: 'pointer',
+    },
 });
 
 const decorate = withStyles(styles);
 
-export const EventView = decorate(
+export const SessionView = decorate(
     class extends React.Component {
         static propTypes = {
-            confStore: PropTypes.object.isRequired,
-            event: PropTypes.object.isRequired,
-            index: PropTypes.number.isRequired
+            eventStore: PropTypes.object.isRequired,
+            session: PropTypes.object.isRequired,
+            index: PropTypes.number.isRequired,
         };
 
         state = {
-            showDetail: false
+            showDetail: false,
         };
 
         render() {
-            const { classes, confStore, event, index } = this.props;
-            const { speakerMap } = event;
+            const { classes, eventStore, session, index } = this.props;
+            const { speakerMap } = session;
             const speaker =
                 speakerMap.size > 0 ? Array.from(speakerMap.values())[0] : null;
 
@@ -79,10 +79,10 @@ export const EventView = decorate(
                         </div>
                     )}
                     <div
-                        className={classes.eventInfo}
+                        className={classes.sessionInfo}
                         onClick={this.handleClickShowDetail}
                     >
-                        <Headline>{event.name}</Headline>
+                        <Headline>{session.name}</Headline>
                         {speaker && (
                             <Typography
                                 variant="subheading"
@@ -92,9 +92,9 @@ export const EventView = decorate(
                             </Typography>
                         )}
                     </div>
-                    <EventDetail
-                        confStore={confStore}
-                        event={event}
+                    <SessionDetail
+                        eventStore={eventStore}
+                        session={session}
                         open={this.state.showDetail}
                         onClose={this.handleClose}
                     />
