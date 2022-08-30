@@ -21,7 +21,7 @@
     "firebase": "^8.1.2",
     "moment": "^2.29.1",
     "moment-duration-format": "^2.3.2",
-    "moment-timezone": "^0.5.32",
+    "moment-timezone": "^0.5.35",
     "prop-types": "^15.7.2",
     "react": "^16.14.0",
     "react-dom": "^16.14.0"
